@@ -2,368 +2,39 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mis Proyectos</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-<style>
-  :root{
-    --bg:#0f1115;
-    --card:#1a1d24;
-    --text:#f1f1f1;
-    --muted:#9aa0ab;
-    --accent:#6c8cff;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    font-family:'Segoe UI', Arial, sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    padding:40px 20px;
-  }
-  header{
-    text-align:center;
-    margin-bottom:40px;
-  }
-  header h1{
-    margin:0 0 8px 0;
-    font-size:2.2rem;
-  }
-  header p{
-    color:var(--muted);
-    margin:0;
-  }
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-    gap:28px;
-    max-width:1100px;
-    margin:0 auto;
-  }
-  .card{
-    background:var(--card);
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 4px 18px rgba(0,0,0,0.35);
-    transition:transform .2s ease;
-  }
-  .card:hover{
-    transform:translateY(-6px);
-  }
-  .card canvas{
-    display:block;
-    width:100% !important;
-    height:auto !important;
-  }
-  .card-body{
-    padding:18px 20px 22px;
-  }
-  .card-body h2{
-    margin:0 0 8px 0;
-    font-size:1.25rem;
-  }
-  .card-body p{
-    margin:0 0 14px 0;
-    color:var(--muted);
-    font-size:0.92rem;
-    line-height:1.4;
-  }
-  .card-body a{
-    display:inline-block;
-    color:var(--accent);
-    text-decoration:none;
-    font-weight:600;
-    font-size:0.9rem;
-  }
-  .card-body a:hover{
-    text-decoration:underline;
-  }
-
-  /* ---- Modal de detalle ---- */
-  .overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.75);
-    align-items:center;
-    justify-content:center;
-    padding:24px;
-    z-index:1000;
-  }
-  .overlay.open{
-    display:flex;
-  }
-  .modal{
-    background:var(--card);
-    border-radius:14px;
-    max-width:900px;
-    width:100%;
-    max-height:90vh;
-    overflow-y:auto;
-    position:relative;
-    box-shadow:0 10px 40px rgba(0,0,0,0.5);
-  }
-  .modal-close{
-    position:absolute;
-    top:12px;
-    right:14px;
-    background:rgba(0,0,0,0.4);
-    color:#fff;
-    border:none;
-    border-radius:50%;
-    width:34px;
-    height:34px;
-    font-size:1.1rem;
-    cursor:pointer;
-    line-height:1;
-  }
-  .modal-close:hover{
-    background:rgba(0,0,0,0.7);
-  }
-  .modal-media{
-    width:100%;
-    display:block;
-    border-radius:14px 14px 0 0;
-  }
-  .modal-media img{
-    width:100%;
-    display:block;
-    border-radius:14px 14px 0 0;
-  }
-  .modal-body{
-    padding:22px 28px 30px;
-  }
-  .modal-body h2{
-    margin:0 0 6px 0;
-    font-size:1.5rem;
-  }
-  .modal-body .modal-subtitle{
-    color:var(--accent);
-    font-size:0.85rem;
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:0.04em;
-    margin:0 0 14px 0;
-  }
-  .modal-body p{
-    color:var(--muted);
-    line-height:1.5;
-    margin:0;
-  }
-  .back-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    background:none;
-    border:none;
-    color:var(--accent);
-    font-size:0.9rem;
-    font-weight:600;
-    cursor:pointer;
-    padding:0 0 16px 0;
-  }
-  .back-btn:hover{
-    text-decoration:underline;
-  }
-</style>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<header>
-  <h1>Mis Proyectos</h1>
-  <p>Portafolio de ejemplo — reemplaza títulos, descripciones y enlaces con tus datos reales</p>
+<header id="siteHeader">
+  <h1 id="siteTitle">Cargando…</h1>
+  <p id="siteTagline"></p>
 </header>
 
-<div class="grid">
-  <div class="card">
-    <div id="sketch1"></div>
-    <div class="card-body">
-      <h2>Proyecto 1</h2>
-      <p>Descripción breve del proyecto 1. Explica de qué se trata, qué tecnologías usaste y qué problema resuelve.</p>
-      <a href="#" onclick="openProject(0); return false;">Ver proyecto →</a>
-    </div>
-  </div>
+<main>
+  <p id="loadError" class="load-error" hidden>No se pudieron cargar los proyectos. Intenta recargar la página.</p>
+  <div class="grid" id="grid"></div>
+</main>
 
-  <div class="card">
-    <div id="sketch2"></div>
-    <div class="card-body">
-      <h2>Proyecto 2</h2>
-      <p>Descripción breve del proyecto 2. Explica de qué se trata, qué tecnologías usaste y qué problema resuelve.</p>
-      <a href="#" onclick="openProject(1); return false;">Ver proyecto →</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div id="sketch3"></div>
-    <div class="card-body">
-      <h2>Proyecto 3</h2>
-      <p>Descripción breve del proyecto 3. Explica de qué se trata, qué tecnologías usaste y qué problema resuelve.</p>
-      <a href="#" onclick="openProject(2); return false;">Ver proyecto →</a>
-    </div>
-  </div>
-</div>
-
-<!-- Modal de detalle: se abre al hacer clic en "Ver proyecto" -->
-<div class="overlay" id="overlay" onclick="if(event.target===this) closeProject();">
-  <div class="modal">
-    <button class="modal-close" onclick="closeProject()">✕</button>
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Cerrar">✕</button>
     <div class="modal-media" id="modalMedia"></div>
     <div class="modal-body">
-      <button class="back-btn" onclick="closeProject()">← Volver a mis proyectos</button>
+      <button class="back-btn" id="modalBackBtn">← Volver a mis proyectos</button>
       <p class="modal-subtitle" id="modalSubtitle"></p>
-      <h2 id="modalTitle"></h2>
+      <h2 id="modalTitle" tabindex="-1"></h2>
+      <p class="modal-meta" id="modalMeta"></p>
       <p id="modalDesc"></p>
+      <ul class="modal-tags" id="modalTags"></ul>
+      <div class="modal-links" id="modalLinks"></div>
+      <div class="modal-contact" id="modalContact"></div>
     </div>
   </div>
 </div>
 
-<script>
-const projects = [
-  {
-    title: "Proyecto 1",
-    subtitle: "Interfaz impresora",
-    desc: "Diagrama de interacción integral: entradas del sistema (operadora, filamento, alimentación) y salidas/flujos (extrusor, control de movimiento, calefacción, pieza final) de la impresora Bambu Lab X1c.",
-    image: "proyecto1-interfaz-impresora.png"
-  },
-  {
-    title: "Proyecto 2",
-    subtitle: null,
-    desc: "Descripción breve del proyecto 2. Explica de qué se trata, qué tecnologías usaste y qué problema resuelve.",
-    image: null,
-    color: '#ff5c8a', seed: 2
-  },
-  {
-    title: "Proyecto 3",
-    subtitle: null,
-    desc: "Descripción breve del proyecto 3. Explica de qué se trata, qué tecnologías usaste y qué problema resuelve.",
-    image: null,
-    color: '#22c1a4', seed: 3
-  }
-];
-
-let modalP5 = null;
-
-function hashToIndex(){
-  const m = window.location.hash.match(/^#proyecto-(\d+)$/);
-  if (m) {
-    const idx = parseInt(m[1], 10) - 1;
-    if (idx >= 0 && idx < projects.length) return idx;
-  }
-  return null;
-}
-
-function makeSketch(baseColor, seed, customW, customH){
-  return function(p){
-    let w = customW || 320, h = customH || 200;
-    p.setup = function(){
-      let cnv = p.createCanvas(w, h);
-      cnv.parent(cnv.canvas.parentElement);
-      p.noLoop();
-    };
-    p.draw = function(){
-      p.randomSeed(seed);
-      p.noiseSeed(seed);
-      p.background(baseColor);
-      p.noStroke();
-      for(let i = 0; i < 6; i++){
-        let x = p.random(w);
-        let y = p.random(h);
-        let r = p.random(40, 140);
-        p.fill(255, 255, 255, 30);
-        p.ellipse(x, y, r, r);
-      }
-      p.fill(255, 255, 255, 200);
-      p.textAlign(p.CENTER, p.CENTER);
-      p.textSize(18);
-      p.textStyle(p.BOLD);
-      p.text("PLACEHOLDER", w/2, h/2);
-    };
-  };
-}
-
-function renderPlaceholder(container, color, seed, w, h){
-  container.innerHTML = '';
-  if (typeof p5 !== 'undefined') {
-    try {
-      return new p5(makeSketch(color, seed, w, h), container);
-    } catch (e) { /* si algo falla, sigue con el fallback de abajo */ }
-  }
-  const div = document.createElement('div');
-  div.style.width = '100%';
-  div.style.height = (h || 200) + 'px';
-  div.style.background = color;
-  div.style.display = 'flex';
-  div.style.alignItems = 'center';
-  div.style.justifyContent = 'center';
-  div.style.color = '#fff';
-  div.style.fontWeight = 'bold';
-  div.style.borderRadius = 'inherit';
-  div.textContent = 'PLACEHOLDER';
-  container.appendChild(div);
-  return null;
-}
-
-function showProject(i){
-  const proj = projects[i];
-  document.getElementById('modalTitle').textContent = proj.title;
-  document.getElementById('modalDesc').textContent = proj.desc;
-  const subtitleEl = document.getElementById('modalSubtitle');
-  subtitleEl.textContent = proj.subtitle || '';
-  subtitleEl.style.display = proj.subtitle ? 'block' : 'none';
-
-  const media = document.getElementById('modalMedia');
-  media.innerHTML = '';
-  if (modalP5) { modalP5.remove(); modalP5 = null; }
-
-  if (proj.image) {
-    const img = document.createElement('img');
-    img.src = proj.image;
-    img.alt = proj.subtitle || proj.title;
-    media.appendChild(img);
-  } else {
-    modalP5 = renderPlaceholder(media, proj.color, proj.seed, 860, 420);
-  }
-
-  document.getElementById('overlay').classList.add('open');
-}
-
-function hideProject(){
-  document.getElementById('overlay').classList.remove('open');
-}
-
-function openProject(i){
-  showProject(i);
-  try {
-    window.history.pushState({ project: i }, '', '#proyecto-' + (i + 1));
-  } catch (e) {}
-}
-
-function closeProject(){
-  hideProject();
-  try {
-    if (window.location.hash) {
-      window.history.pushState({}, '', window.location.pathname + window.location.search);
-    }
-  } catch (e) {}
-}
-
-window.addEventListener('popstate', function(){
-  const idx = hashToIndex();
-  if (idx !== null) showProject(idx); else hideProject();
-});
-
-document.addEventListener('keydown', function(e){
-  if (e.key === 'Escape') closeProject();
-});
-
-window.addEventListener('DOMContentLoaded', function(){
-  const idx = hashToIndex();
-  if (idx !== null) showProject(idx);
-});
-
-renderPlaceholder(document.getElementById('sketch1'), '#4a5cff', 1, 320, 200);
-renderPlaceholder(document.getElementById('sketch2'), '#ff5c8a', 2, 320, 200);
-renderPlaceholder(document.getElementById('sketch3'), '#22c1a4', 3, 320, 200);
-</script>
-
+<script src="js/app.js" defer></script>
 </body>
 </html>

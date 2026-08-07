@@ -1,0 +1,56 @@
+{
+  "site": {
+    "title": "Mis Proyectos",
+    "ownerName": "Jose",
+    "tagline": "Diseño de interfaces · Taller UAI",
+    "contactEmail": "",
+    "contactLinkedIn": ""
+  },
+  "projects": [
+    {
+      "id": "interfaz-impresora",
+      "order": 1,
+      "published": true,
+      "title": "Interfaz impresora",
+      "subtitle": "Diagrama de interacción",
+      "cardExcerpt": "Diagrama de interacción de la impresora Bambu Lab X1c: entradas (operadora, filamento, alimentación) y salidas (extrusor, movimiento, calefacción, pieza final).",
+      "description": "Diagrama de interacción integral: entradas del sistema (operadora, filamento, alimentación) y salidas/flujos (extrusor, control de movimiento, calefacción, pieza final) de la impresora Bambu Lab X1c.",
+      "year": 2026,
+      "tags": ["interfaces", "diagrama"],
+      "role": "Diseño de interacción",
+      "thumb": "assets/projects/interfaz-impresora/thumb.png",
+      "hero": "assets/projects/interfaz-impresora/hero.png",
+      "links": []
+    },
+    {
+      "id": "proyecto-2",
+      "order": 2,
+      "published": false,
+      "title": "Proyecto 2",
+      "subtitle": "",
+      "cardExcerpt": "",
+      "description": "",
+      "year": 2026,
+      "tags": [],
+      "role": "",
+      "thumb": "",
+      "hero": "",
+      "links": []
+    },
+    {
+      "id": "proyecto-3",
+      "order": 3,
+      "published": false,
+      "title": "Proyecto 3",
+      "subtitle": "",
+      "cardExcerpt": "",
+      "description": "",
+      "year": 2026,
+      "tags": [],
+      "role": "",
+      "thumb": "",
+      "hero": "",
+      "links": []
+    }
+  ]
+}
